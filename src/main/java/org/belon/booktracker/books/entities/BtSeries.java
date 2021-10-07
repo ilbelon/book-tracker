@@ -47,7 +47,7 @@ public class BtSeries implements Serializable{
 	 * Books in this series.
 	 */
 //	@ApiModelProperty(notes = "Books in this series.", required = false, position = 2, dataType = "BtBooks")
-	@OneToMany(mappedBy = "serie", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "serie", cascade = CascadeType.REMOVE)
 	private Set<BtBookSeriesOrder> seriesAssociation;
 
 }

@@ -68,7 +68,7 @@ public class BtBooks implements Serializable {
     @JoinColumn(name="setting_id", nullable=false)
     private BtSettings setting;
 	
-	@OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
 	private Set<BtBookSeriesOrder> bookAssociation;
 	
 }
