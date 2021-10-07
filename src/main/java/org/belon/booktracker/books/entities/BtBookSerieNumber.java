@@ -20,7 +20,7 @@ import lombok.Data;
  */
 //@ApiModel(description = "Class representing ManyToMany relationship between books and series")
 @Entity
-@IdClass(BtBookSeriesNumberId.class)
+@IdClass(BtBookSerieNumberId.class)
 @Data
 public class BtBookSerieNumber implements Serializable {
 
