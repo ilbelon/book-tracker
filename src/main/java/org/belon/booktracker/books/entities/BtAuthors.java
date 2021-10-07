@@ -3,16 +3,24 @@ package org.belon.booktracker.books.entities;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
+ * Class representing an Author in the application.
+ * 
  * @author andrea
  *
  */
-@ApiModel(description = "Class representing an Author in the application.")
+//@ApiModel(description = "Class representing an Author in the application.")
+@Entity
 @Data
 public class BtAuthors implements Serializable{
 
@@ -22,6 +30,8 @@ public class BtAuthors implements Serializable{
 	 * Unique identifier of the author.
 	 */
 //	@ApiModelProperty(notes = "Unique identifier of the author.", example = "1", required = true, position = 0)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	/**
@@ -29,11 +39,13 @@ public class BtAuthors implements Serializable{
 	 */
 //	@ApiModelProperty(notes = "Name of the Author", example = "Collodi", required = true, position = 1)
 	@NotBlank
+	@Column
 	private String name;
 	
 	/**
 	 * Books written by the Author
 	 */
 //	@ApiModelProperty(notes = "Books written by the Author", required = false, position = 2, dataType = "BtBooks")
+	@ManyToMany(mappedBy = "author")
 	private Set<BtBooks> books;
 }

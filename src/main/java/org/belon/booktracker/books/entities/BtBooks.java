@@ -1,19 +1,31 @@
 package org.belon.booktracker.books.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
+ * Class representing a book in the application.
+ * 
  * @author andrea
- *
+ *  
  */
-@ApiModel(description = "Class representing a Book in the application.")
+//@ApiModel(description = "Class representing a Book in the application.")
 @Entity
 @Data
 public class BtBooks implements Serializable {
@@ -25,6 +37,7 @@ public class BtBooks implements Serializable {
 	 */
 //	@ApiModelProperty(notes = "Unique identifier of the Book.", example = "1", required = true, position = 0)
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	/**
@@ -32,13 +45,30 @@ public class BtBooks implements Serializable {
 	 */
 //	@ApiModelProperty(notes = "Title of the Book.", example = "Pinocchio", required = true, position = 1)
 	@NotBlank
+	@Column
 	private String title;
 	
 	/**
 	 * Authors of the Book.
 	 */
 //	@ApiModelProperty(notes = "Authors of the Book.", required = true, position = 2, dataType = "BtAuthors")
-//	@NotBlank
-//	private Set<BtAuthors> author;
+	@NotBlank
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinTable(
+			name = "bt_book_author",
+			joinColumns = { @JoinColumn(name = "bt_book_id") }, 
+			inverseJoinColumns = {@JoinColumn(name = "bt_author_id") }
+			)
+	private Set<BtAuthors> author;
+	
+	/**
+	 * Setting of the book
+	 */
+	@ManyToOne
+    @JoinColumn(name="setting_id", nullable=false)
+    private BtSettings setting;
+	
+	@OneToMany(mappedBy = "book")
+	private Set<BtBookSeriesOrder> bookAssociation;
 	
 }
