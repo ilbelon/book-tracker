@@ -53,7 +53,7 @@ public class BtBooks implements Serializable {
 	 */
 //	@ApiModelProperty(notes = "Authors of the Book.", required = true, position = 2, dataType = "BtAuthors")
 	@NotBlank
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(
 			name = "bt_book_author",
 			joinColumns = { @JoinColumn(name = "bt_book_id") }, 
@@ -68,7 +68,7 @@ public class BtBooks implements Serializable {
     @JoinColumn(name="setting_id", nullable=false)
     private BtSettings setting;
 	
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
 	private Set<BtBookSeriesOrder> bookAssociation;
 	
 }
