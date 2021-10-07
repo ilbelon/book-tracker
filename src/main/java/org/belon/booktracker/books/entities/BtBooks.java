@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import org.belon.booktracker.userdata.entities.BtUserBookAssociation;
+
 import lombok.Data;
 
 /**
@@ -62,13 +64,22 @@ public class BtBooks implements Serializable {
 	private Set<BtAuthors> author;
 	
 	/**
-	 * Setting of the book
+	 * Setting of the book.
 	 */
 	@ManyToOne
     @JoinColumn(name="setting_id", nullable=false)
     private BtSettings setting;
 	
+	/**
+	 * BtBookSeriesNumber where book is present.
+	 */
 	@OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
-	private Set<BtBookSeriesOrder> bookAssociation;
+	private Set<BtBookSerieNumber> bookAssociations;
+	
+	/**
+	 * UserBookAssociation created by users abpout a book.
+	 */
+	@OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
+	private Set<BtUserBookAssociation> userBookAssociations;
 	
 }

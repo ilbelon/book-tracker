@@ -20,9 +20,9 @@ import lombok.Data;
  */
 //@ApiModel(description = "Class representing ManyToMany relationship between books and series")
 @Entity
-@IdClass(BtBookSeriesOrderId.class)
+@IdClass(BtBookSeriesNumberId.class)
 @Data
-public class BtBookSeriesOrder implements Serializable {
+public class BtBookSerieNumber implements Serializable {
 
 	private static final long serialVersionUID = -121340344346838183L;
 	
@@ -50,5 +50,5 @@ public class BtBookSeriesOrder implements Serializable {
 //	@ApiModelProperty(notes = "Number representing the order of this book in the series", example = "2", required = true)
 	@Column
 	@NotBlank
-	private int orderInSeries;
+	private int numberOfBookInSeries;
 }

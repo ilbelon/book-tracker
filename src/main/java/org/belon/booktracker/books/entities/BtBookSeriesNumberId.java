@@ -11,7 +11,7 @@ import lombok.Data;
  *
  */
 @Data
-public class BtBookSeriesOrderId implements Serializable {
+public class BtBookSeriesNumberId implements Serializable {
 
 	private static final long serialVersionUID = 4505442923004170635L;
 

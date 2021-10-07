@@ -2,11 +2,16 @@ package org.belon.booktracker.users.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+
+import org.belon.booktracker.userdata.entities.BtUserBookAssociation;
 
 import lombok.Data;
 
@@ -56,6 +61,10 @@ public class BtUsers implements Serializable{
 	@NotBlank
 	private LocalDate registrationDate;
 	
-//	private Set<BtUserBookAssociation> bookAssociation;
+	/**
+	 * UserBookAssociation created by user.
+	 */
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+	private Set<BtUserBookAssociation> bookAssociation;
 	
 }

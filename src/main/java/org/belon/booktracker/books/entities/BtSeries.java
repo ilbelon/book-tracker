@@ -48,6 +48,6 @@ public class BtSeries implements Serializable{
 	 */
 //	@ApiModelProperty(notes = "Books in this series.", required = false, position = 2, dataType = "BtBooks")
 	@OneToMany(mappedBy = "serie", cascade = CascadeType.REMOVE)
-	private Set<BtBookSeriesOrder> seriesAssociation;
+	private Set<BtBookSerieNumber> seriesAssociation;
 
 }
