@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -19,13 +18,22 @@ public class BtSettings implements Serializable{
 
 	private static final long serialVersionUID = 5401408144750200754L;
 	
+	/**
+	 * Unique identifier of the setting.
+	 */
 	private Long id;
 	
-	@ApiModelProperty(notes = "Name of the setting.", example = "Forgottens Realms", required = true, position = 1)
+	/**
+	 * Name of the setting.
+	 */
+//	@ApiModelProperty(notes = "Name of the setting.", example = "Forgottens Realms", required = true, position = 1)
 	@NotBlank
 	private String name;
 	
-	@ApiModelProperty(notes = "Books in this setting.", required = false, position = 2, dataType = "BtBooks")
+	/**
+	 * Books in this setting.
+	 */
+//	@ApiModelProperty(notes = "Books in this setting.", required = false, position = 2, dataType = "BtBooks")
 	private Set<BtBooks> books;
 
 }
