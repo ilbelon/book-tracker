@@ -1,4 +1,4 @@
-package org.belon.booktracker.userdata.repository;
+package org.belon.booktracker.userdata.repositories;
 
 import org.belon.booktracker.userdata.entities.BtCharactersBond;
 import org.belon.booktracker.userdata.entities.BtCharactersBondId;

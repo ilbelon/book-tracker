@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.belon.booktracker.userdata.repository;
+package org.belon.booktracker.userdata.repositories;
 
 import org.belon.booktracker.userdata.entities.BtCharactersData;
 import org.springframework.data.jpa.repository.JpaRepository;

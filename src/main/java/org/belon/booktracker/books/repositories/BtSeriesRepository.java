@@ -1,4 +1,4 @@
-package org.belon.booktracker.books.repository;
+package org.belon.booktracker.books.repositories;
 
 import org.belon.booktracker.books.entities.BtSeries;
 import org.springframework.data.jpa.repository.JpaRepository;
