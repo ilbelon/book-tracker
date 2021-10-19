@@ -1,12 +1,14 @@
 package org.belon.booktracker.users.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +33,7 @@ public class BtUsers implements Serializable{
 	 * Unique identifier of the user.
 	 */
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	/**
@@ -43,14 +46,14 @@ public class BtUsers implements Serializable{
 	/**
 	 * User username.
 	 */
-	@Column
+	@Column(unique=true)
 	@NotBlank(message="Username can't be empty")
 	private String username;
 	
 	/**
 	 * User email.
 	 */
-	@Column
+	@Column(unique=true)
 	@NotBlank(message="Email can't be empty")
 	private String email;
 	
@@ -58,8 +61,7 @@ public class BtUsers implements Serializable{
 	 * User registration date.
 	 */
 	@Column
-	@NotBlank
-	private LocalDate registrationDate;
+	private LocalDateTime registrationDate;
 	
 	/**
 	 * UserBookAssociation created by user.

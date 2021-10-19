@@ -5,7 +5,7 @@ package org.belon.booktracker.users.service;
 
 import java.util.List;
 
-import org.belon.booktracker.users.dto.BtUsersDto;
+import org.belon.booktracker.users.api.v1.dto.BtUsersDto;
 
 /**
  * Service interface for BtUsers
@@ -14,7 +14,7 @@ import org.belon.booktracker.users.dto.BtUsersDto;
  *
  */
 
-public interface BtUserService {
+public interface BtUsersService {
 
 	public BtUsersDto createBtUser(BtUsersDto userDto);
 	

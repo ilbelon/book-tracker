@@ -1,14 +1,15 @@
 package org.belon.booktracker.users.service.impl;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.belon.booktracker.users.dto.BtUsersDto;
+import org.belon.booktracker.users.api.v1.dto.BtUsersDto;
+import org.belon.booktracker.users.api.v1.mapper.BtUsersMapper;
 import org.belon.booktracker.users.entities.BtUsers;
-import org.belon.booktracker.users.mappers.BtUsersMapper;
 import org.belon.booktracker.users.repositories.BtUsersRepository;
-import org.belon.booktracker.users.service.BtUserService;
+import org.belon.booktracker.users.service.BtUsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,16 +21,17 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Service
-public class BtUserServiceImpl implements BtUserService{
+public class BtUserServiceImpl implements BtUsersService{
 
+	@Autowired
 	private BtUsersRepository userRepository;
-	
+	@Autowired
 	private BtUsersMapper userMapper;
 	
 	@Transactional
 	public BtUsersDto createBtUser(BtUsersDto userDto) {
 		BtUsers user = userMapper.btUsersDtoToBtUsers(userDto);
-		user.setRegistrationDate(LocalDate.now());
+		user.setRegistrationDate(LocalDateTime.now());
 		user = userRepository.save(user);
 		return userMapper.btUsersDtoFromBtUsers(user);
 	}
@@ -46,6 +48,9 @@ public class BtUserServiceImpl implements BtUserService{
 	@Transactional(readOnly = true)
 	public List<BtUsersDto> getBtUserList() {
 		return userMapper.btUsersDtoFromBtUsers(userRepository.findAll());
+//		List<BtUsers> userList = userRepository.findAll();
+//		if (userList!=null && userList.size()>0) return userMapper.btUsersDtoFromBtUsers(userRepository.findAll());
+//		return new ArrayList<BtUsersDto>();
 	}
 
 	@Transactional
