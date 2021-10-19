@@ -48,6 +48,4 @@ public class BtUserBookAssociation implements Serializable {
 	@Column
 	private LocalDate insertDate;
 	
-	
-	
 }

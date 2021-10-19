@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -40,7 +41,8 @@ public class BtSeries implements Serializable{
 	 */
 //	@ApiModelProperty(notes = "Name of the series.", example = "Legend of Drizzt", required = true, position = 1)
 	@Column
-	@NotBlank
+	@NotBlank(message="Serie name can't be empty")
+	@Size(min=2,max=254,message="Serie name length must be between 2 and 254")
 	private String name;
 	
 	/**

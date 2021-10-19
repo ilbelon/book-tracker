@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -39,7 +40,8 @@ public class BtSettings implements Serializable{
 	 */
 //	@ApiModelProperty(notes = "Name of the setting.", example = "Forgottens Realms", required = true, position = 1)
 	@Column
-	@NotBlank
+	@NotBlank(message="Name can't be empty")
+	@Size(min=2,max=254,message="Name length must be between 2 and 254")
 	private String name;
 	
 	/**

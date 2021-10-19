@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -41,6 +42,7 @@ public class BtAuthors implements Serializable{
 //	@ApiModelProperty(notes = "Name of the Author", example = "Collodi", required = true, position = 1)
 	@NotBlank
 	@Column
+	@Size(min=5,max=50,message="Name length must be between 5 and 50")
 	private String name;
 	
 	/**

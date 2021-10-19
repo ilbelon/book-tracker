@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.belon.booktracker.userdata.entities.BtUserBookAssociation;
 
@@ -46,8 +47,9 @@ public class BtBooks implements Serializable {
 	 * Title of the Book.
 	 */
 //	@ApiModelProperty(notes = "Title of the Book.", example = "Pinocchio", required = true, position = 1)
-	@NotBlank
 	@Column
+	@NotBlank(message="Book title can't be empty")
+	@Size(min=2,max=254,message="Book title can't be empty")
 	private String title;
 	
 	/**

@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -56,6 +57,7 @@ public class BtUserBookData implements Serializable{
 		  @JoinColumn(name = "book_id", insertable = false, updatable = false, nullable=false),
 		  @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable=false)
 		})
+	@NotBlank(message="UserBook Association can't be empty")
     private BtUserBookAssociation userBookAssociation;
 	
 }

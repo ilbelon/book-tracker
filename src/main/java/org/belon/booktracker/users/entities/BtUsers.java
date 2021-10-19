@@ -37,21 +37,21 @@ public class BtUsers implements Serializable{
 	 * User name.
 	 */
 	@Column
-	@NotBlank
+	@NotBlank (message="Name can't be empty")
 	private String name;
 	
 	/**
 	 * User username.
 	 */
 	@Column
-	@NotBlank
+	@NotBlank(message="Username can't be empty")
 	private String username;
 	
 	/**
 	 * User email.
 	 */
 	@Column
-	@NotBlank
+	@NotBlank(message="Email can't be empty")
 	private String email;
 	
 	/**
