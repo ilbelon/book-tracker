@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.belon.booktracker.core.response.ResponseFactory;
+import org.belon.booktracker.core.response.exception.customexceptions.PersistenceViolationException;
 import org.belon.booktracker.core.response.exception.customexceptions.ResourceNotFoundExceptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -49,8 +50,14 @@ public class RestErrorResponseHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(ResourceNotFoundExceptions.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Object> resourceNotFoundException(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> resourceNotFoundException(ResourceNotFoundExceptions ex, WebRequest request) {
 		return ResponseFactory.generateErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, null);
+    }
+	
+	@ExceptionHandler(PersistenceViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<Object> resourceDataIntegrityViolationException(PersistenceViolationException ex, WebRequest request) {
+		return ResponseFactory.generateErrorResponse(ex.getMessage(), HttpStatus.CONFLICT, null, ex.getData());
     }
 	
 	@ExceptionHandler(Exception.class)

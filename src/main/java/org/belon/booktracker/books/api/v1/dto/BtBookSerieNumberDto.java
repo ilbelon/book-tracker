@@ -1,4 +1,4 @@
-package org.belon.booktracker.books.dto;
+package org.belon.booktracker.books.api.v1.dto;
 
 import java.io.Serializable;
 
@@ -26,7 +26,6 @@ public class BtBookSerieNumberDto implements Serializable{
 	@NotBlank(message="Serie can't be null")
 	private BtSeriesDto serie;
 	
-	@NotBlank(message="Number of this book in series can't be null")
 	@Min(value=1,message="The book number in serie can't be lesser than 1")
 	private int numberOfThisBookInSeries;
 	

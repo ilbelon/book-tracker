@@ -47,14 +47,14 @@ public class BtUsers implements Serializable{
 	/**
 	 * User username.
 	 */
-	@Column(unique=true, name="UK_USERNAME")
+	@Column(unique=true, name="USERNAME")
 	@NotBlank(message="Username can't be empty")
 	private String username;
 	
 	/**
 	 * User email.
 	 */
-	@Column(unique=true, name="UK_EMAIL")
+	@Column(unique=true, name="EMAIL")
 	@NotBlank(message="Email can't be empty")
 	@Email
 	private String email;

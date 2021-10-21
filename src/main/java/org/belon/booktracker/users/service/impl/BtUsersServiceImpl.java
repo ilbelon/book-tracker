@@ -23,12 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Service
-public class BtUserServiceImpl implements BtUsersService{
+public class BtUsersServiceImpl implements BtUsersService{
 
 	@Autowired
 	private BtUsersRepository userRepository;
 	@Autowired
 	private BtUsersMapper userMapper;
+	
+	private String userNotFoundMessage="User with this id does not exists";
 	
 	@Transactional
 	public BtUsersDto createBtUser(BtUsersDto userDto) {
@@ -44,7 +46,7 @@ public class BtUserServiceImpl implements BtUsersService{
 		if(user.isPresent()) {
 			return userMapper.btUsersDtoFromBtUsers(user.get());
 		}
-		else throw new ResourceNotFoundExceptions("User with this id does not exists");
+		else throw new ResourceNotFoundExceptions(userNotFoundMessage);
 	}
 
 	@Transactional(readOnly = true)
@@ -61,7 +63,7 @@ public class BtUserServiceImpl implements BtUsersService{
 			updatedUser = userRepository.save(updatedUser);
 			return userMapper.btUsersDtoFromBtUsers(updatedUser);
 		}
-		else throw new ResourceNotFoundExceptions("User with this id does not exists");
+		else throw new ResourceNotFoundExceptions(userNotFoundMessage);
 	}
 
 	@Transactional
@@ -69,7 +71,7 @@ public class BtUserServiceImpl implements BtUsersService{
 		try {
 			userRepository.deleteById(id);
 		} catch(EmptyResultDataAccessException ex) {
-			throw new ResourceNotFoundExceptions("User with this id does not exists");
+			throw new ResourceNotFoundExceptions(userNotFoundMessage);
 		}
 		
 	}

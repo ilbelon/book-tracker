@@ -44,7 +44,7 @@ public class BtChapterData extends BtUserBookData implements Serializable{
 	 */
 	@ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
 	@JoinTable(
-	  name = "character_chapter", 
+	  name = "bt_character_chapter", 
 	  joinColumns = @JoinColumn(name = "chapter_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "character_id"))
 	Set<BtCharactersData> charactersInChapter;
@@ -54,7 +54,7 @@ public class BtChapterData extends BtUserBookData implements Serializable{
 	 */
 	@ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
 	@JoinTable(
-	  name = "place_chapter", 
+	  name = "bt_place_chapter", 
 	  joinColumns = @JoinColumn(name = "chapter_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "place_id"))
 	Set<BtPlacesData> placesInChapter;

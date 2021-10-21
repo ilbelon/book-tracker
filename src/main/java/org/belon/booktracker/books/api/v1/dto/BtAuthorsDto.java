@@ -1,4 +1,4 @@
-package org.belon.booktracker.books.dto;
+package org.belon.booktracker.books.api.v1.dto;
 
 import java.io.Serializable;
 
@@ -21,6 +21,10 @@ public class BtAuthorsDto implements Serializable{
 	private Long id;
 	
 	@NotBlank
-	@Size(min=5,max=50,message="Name length must be between 5 and 50")
+	@Size(min=3,max=50,message="Name length must be between 3 and 50")
 	private String name;
+	
+	@NotBlank
+	@Size(min=3,max=50,message="Name length must be between 3 and 50")
+	private String surname;
 }

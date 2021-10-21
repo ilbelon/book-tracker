@@ -1,8 +1,10 @@
-package org.belon.booktracker.books.dto;
+package org.belon.booktracker.books.api.v1.dto;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -23,4 +25,9 @@ public class BtBooksDto implements Serializable{
 	@Size(min=2,max=254,message="Book title length must be between 2 and 254")
 	@NotBlank(message="Book title can't be empty")
 	private String title;
+	
+	@NotEmpty(message="Author should be provided")
+	private Set<BtAuthorsDto> authors;
+	
+	private BtSettingsDto setting;
 }

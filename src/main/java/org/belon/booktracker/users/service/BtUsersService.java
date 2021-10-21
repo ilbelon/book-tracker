@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.belon.booktracker.users.service;
 
 import java.util.List;

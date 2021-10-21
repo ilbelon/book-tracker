@@ -79,7 +79,7 @@ public class BtBooks implements Serializable {
 	private Set<BtBookSerieNumber> bookAssociations;
 	
 	/**
-	 * UserBookAssociation created by users abpout a book.
+	 * UserBookAssociation created by users about a book.
 	 */
 	@OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
 	private Set<BtUserBookAssociation> userBookAssociations;

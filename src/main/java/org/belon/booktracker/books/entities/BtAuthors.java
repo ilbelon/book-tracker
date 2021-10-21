@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -23,6 +24,8 @@ import lombok.Data;
  */
 //@ApiModel(description = "Class representing an Author in the application.")
 @Entity
+@Table(uniqueConstraints=@javax.persistence.UniqueConstraint(columnNames={"name", "surname"}))
+
 @Data
 public class BtAuthors implements Serializable{
 
@@ -41,9 +44,14 @@ public class BtAuthors implements Serializable{
 	 */
 //	@ApiModelProperty(notes = "Name of the Author", example = "Collodi", required = true, position = 1)
 	@NotBlank
-	@Column
-	@Size(min=5,max=50,message="Name length must be between 5 and 50")
+	@Column//(unique=true, name="NAME")
+	@Size(min=3,max=50,message="Name length must be between 3 and 50")
 	private String name;
+	
+	@NotBlank
+	@Column//(unique=true, name="SURNAME")
+	@Size(min=3,max=50,message="Name length must be between 3 and 50")
+	private String surname;
 	
 	/**
 	 * Books written by the Author

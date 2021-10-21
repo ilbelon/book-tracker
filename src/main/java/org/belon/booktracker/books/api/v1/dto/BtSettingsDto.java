@@ -1,4 +1,4 @@
-package org.belon.booktracker.books.dto;
+package org.belon.booktracker.books.api.v1.dto;
 
 import java.io.Serializable;
 
