@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.belon.booktracker.core.response.exception.customexceptions.ResourceNotFoundExceptions;
 import org.belon.booktracker.users.api.v1.dto.BtUsersDto;
 import org.belon.booktracker.users.api.v1.mapper.BtUsersMapper;
 import org.belon.booktracker.users.entities.BtUsers;
@@ -42,7 +43,7 @@ public class BtUserServiceImpl implements BtUsersService{
 		if(user.isPresent()) {
 			return userMapper.btUsersDtoFromBtUsers(user.get());
 		}
-		return null;//TODO trohw not found exception
+		else throw new ResourceNotFoundExceptions("User with this id does not exists");
 	}
 
 	@Transactional(readOnly = true)
@@ -62,7 +63,7 @@ public class BtUserServiceImpl implements BtUsersService{
 			updatedUser = userRepository.save(updatedUser);
 			return userMapper.btUsersDtoFromBtUsers(updatedUser);
 		}
-		return null;//TODO trohw not found exception
+		else throw new ResourceNotFoundExceptions("User with this id does not exists");
 	}
 
 	@Transactional
