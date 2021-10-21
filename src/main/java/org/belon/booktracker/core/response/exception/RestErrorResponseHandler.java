@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,32 +34,54 @@ public class RestErrorResponseHandler extends ResponseEntityExceptionHandler {
     @Value("${book.tracker.stacktraceOnErrorResponse:false}")
     private boolean printStackTrace;
 
+	
+    /**
+	 * Override standard method to add a clean list of invalid parameters to response
+	 */
 	@Override
 	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
-			MethodArgumentNotValidException ex,
-			HttpHeaders headers,
-			HttpStatus status,
-			WebRequest request) {
-        Map<String, Object> map = errorObject(ex);
+			MethodArgumentNotValidException ex,	HttpHeaders headers, HttpStatus status,	WebRequest request) {
+        Map<String, Object> errorMap = errorObject(ex);
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-        	map.put(fieldError.getField(), fieldError.getDefaultMessage());
+        	errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        
-        return ResponseFactory.generateErrorResponse("Validation error.", HttpStatus.UNPROCESSABLE_ENTITY, map);
+        return ResponseFactory.generateErrorResponse("Validation error.", HttpStatus.UNPROCESSABLE_ENTITY, errorMap);
     }
 
+	/**
+	 * Handle the custom ResourceNotFoundException throw when request try to access a non existing resource
+	 */
 	@ExceptionHandler(ResourceNotFoundExceptions.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> resourceNotFoundException(ResourceNotFoundExceptions ex, WebRequest request) {
 		return ResponseFactory.generateErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, null);
     }
 	
+	/**
+	 * Handle the custom PersistenceViolationException when request try persist data that violate database constraints
+	 */
 	@ExceptionHandler(PersistenceViolationException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<Object> resourceDataIntegrityViolationException(PersistenceViolationException ex, WebRequest request) {
 		return ResponseFactory.generateErrorResponse(ex.getMessage(), HttpStatus.CONFLICT, null, ex.getData());
     }
+	
+	/**
+	 * Override standard method to add a clean response that contains name and type of missing parameter.
+	 * Doesn't need the @ResponseStatus because it's called by the final method
+	 * 
+	 * ResponseEntityExceptionHandler (this superclass)
+	 * public final ResponseEntity<Object> handleException(Exception ex, WebRequest request)
+	 */
+	@Override
+	protected ResponseEntity<Object> handleMissingServletRequestParameter(
+			MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+		Map<String, Object> errorMap = errorObject(ex);
+		errorMap.put("name",ex.getParameterName());
+		errorMap.put("type", ex.getParameterType());
+		return ResponseFactory.generateErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, errorMap);
+	}
 	
 	@ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
