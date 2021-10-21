@@ -11,6 +11,7 @@ import org.belon.booktracker.users.entities.BtUsers;
 import org.belon.booktracker.users.repositories.BtUsersRepository;
 import org.belon.booktracker.users.service.BtUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,18 +50,14 @@ public class BtUserServiceImpl implements BtUsersService{
 	@Transactional(readOnly = true)
 	public List<BtUsersDto> getBtUserList() {
 		return userMapper.btUsersDtoFromBtUsers(userRepository.findAll());
-//		List<BtUsers> userList = userRepository.findAll();
-//		if (userList!=null && userList.size()>0) return userMapper.btUsersDtoFromBtUsers(userRepository.findAll());
-//		return new ArrayList<BtUsersDto>();
 	}
 
 	@Transactional
-	public BtUsersDto updateBtUser(BtUsersDto userDto) {
+	public BtUsersDto patchBtUser(BtUsersDto userDto) {
 		if(userDto.getId()==null) return null;
 		Optional<BtUsers> user = userRepository.findById(userDto.getId());
 		if(user.isPresent()) {
-			BtUsers old = user.get();
-			BtUsers updatedUser = userMapper.updateBtUsers(userDto,old);
+			BtUsers updatedUser = userMapper.updateBtUsers(userDto,user.get());
 			updatedUser = userRepository.save(updatedUser);
 			return userMapper.btUsersDtoFromBtUsers(updatedUser);
 		}
@@ -69,7 +66,12 @@ public class BtUserServiceImpl implements BtUsersService{
 
 	@Transactional
 	public void deleteBtUser(Long id) {
-		userRepository.deleteById(id);
+		try {
+			userRepository.deleteById(id);
+		} catch(EmptyResultDataAccessException ex) {
+			throw new ResourceNotFoundExceptions("User with this id does not exists");
+		}
+		
 	}
 
 }

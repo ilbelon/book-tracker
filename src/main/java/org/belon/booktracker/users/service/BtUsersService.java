@@ -22,7 +22,7 @@ public interface BtUsersService {
 	
 	public List<BtUsersDto> getBtUserList();
 	
-	public BtUsersDto updateBtUser(BtUsersDto userDto);
+	public BtUsersDto patchBtUser(BtUsersDto userDto);
 	
 	public void deleteBtUser(Long id);
 }

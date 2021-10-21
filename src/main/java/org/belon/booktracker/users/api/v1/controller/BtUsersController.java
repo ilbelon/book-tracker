@@ -56,7 +56,7 @@ public class BtUsersController {
 	@ApiOperation(value = "Update an existing user")
 	@PatchMapping(produces = "application/json")
 	public ResponseEntity<Object> updateUser(@RequestBody BtUsersDto user){
-		return ResponseFactory.generateResponse("User updated succesfully", HttpStatus.OK, userService.updateBtUser(user));
+		return ResponseFactory.generateResponse("User updated succesfully", HttpStatus.OK, userService.patchBtUser(user));
     }
 	
 	@ApiOperation(value = "Delete the user with given userId",response = BtUsersDto.class)
