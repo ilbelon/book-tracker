@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.belon.booktracker.userdata.entities.BtUserBookAssociation;
@@ -55,6 +56,7 @@ public class BtUsers implements Serializable{
 	 */
 	@Column(unique=true, name="UK_EMAIL")
 	@NotBlank(message="Email can't be empty")
+	@Email
 	private String email;
 	
 	/**

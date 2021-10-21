@@ -2,6 +2,7 @@ package org.belon.booktracker.users.api.v1.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModel;
@@ -33,5 +34,6 @@ public class BtUsersDto implements Serializable{
 	
 	@ApiModelProperty(notes = "Email of User", example = "jhonsm86@example.org", required = true, position = 3)
 	@NotBlank(message="Email can't be empty")
+	@Email
 	private String email;
 }

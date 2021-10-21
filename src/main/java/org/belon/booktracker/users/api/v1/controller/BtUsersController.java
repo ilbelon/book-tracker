@@ -3,7 +3,6 @@ package org.belon.booktracker.users.api.v1.controller;
 import javax.validation.Valid;
 
 import org.belon.booktracker.core.response.ResponseFactory;
-import org.belon.booktracker.core.response.exception.customexceptions.ResourceNotFoundExceptions;
 import org.belon.booktracker.users.api.v1.dto.BtUsersDto;
 import org.belon.booktracker.users.service.BtUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +55,7 @@ public class BtUsersController {
 	
 	@ApiOperation(value = "Update an existing user")
 	@PatchMapping(produces = "application/json")
-	public ResponseEntity<Object> updateUser(@RequestBody @Valid BtUsersDto user){
+	public ResponseEntity<Object> updateUser(@RequestBody BtUsersDto user){
 		return ResponseFactory.generateResponse("User updated succesfully", HttpStatus.OK, userService.updateBtUser(user));
     }
 	

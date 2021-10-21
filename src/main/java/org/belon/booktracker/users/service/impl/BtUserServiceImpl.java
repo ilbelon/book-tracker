@@ -56,10 +56,11 @@ public class BtUserServiceImpl implements BtUsersService{
 
 	@Transactional
 	public BtUsersDto updateBtUser(BtUsersDto userDto) {
-		if(userDto.getId()==null) return null;//TODO trohw invalid format exception
+		if(userDto.getId()==null) return null;
 		Optional<BtUsers> user = userRepository.findById(userDto.getId());
 		if(user.isPresent()) {
-			BtUsers updatedUser = userMapper.updateBtUsers(user.get(), userDto);
+			BtUsers old = user.get();
+			BtUsers updatedUser = userMapper.updateBtUsers(userDto,old);
 			updatedUser = userRepository.save(updatedUser);
 			return userMapper.btUsersDtoFromBtUsers(updatedUser);
 		}
