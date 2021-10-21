@@ -34,7 +34,7 @@ public class BtAuthorsServiceImpl implements BtAuthorsSevice{
 	private String authorAlreadyExistsMessage="This name and surname combination already exists.";
 	
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Transactional
 	public BtAuthorsDto createBtAuthor(BtAuthorsDto authorDto) {
