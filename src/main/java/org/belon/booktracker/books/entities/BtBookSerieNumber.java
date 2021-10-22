@@ -42,7 +42,7 @@ public class BtBookSerieNumber implements Serializable {
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     @NotBlank(message="Book can't be null")
-    private BtBooks book;
+    private BtBook book;
 
 	/**
 	 * Serie FK.
@@ -51,7 +51,7 @@ public class BtBookSerieNumber implements Serializable {
     @ManyToOne
     @JoinColumn(name = "serie_id", referencedColumnName = "id")
     @NotBlank(message="Serie can't be null")
-	private BtSeries serie;
+	private BtSerie serie;
 
 	/**
 	 * Number representing the order of this book in the series
