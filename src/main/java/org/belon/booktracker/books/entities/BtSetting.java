@@ -3,7 +3,6 @@ package org.belon.booktracker.books.entities;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +38,7 @@ public class BtSetting implements Serializable{
 	 * Name of the setting.
 	 */
 //	@ApiModelProperty(notes = "Name of the setting.", example = "Forgottens Realms", required = true, position = 1)
-	@Column
+	@Column(unique=true)
 	@NotBlank(message="Name can't be empty")
 	@Size(min=2,max=254,message="Name length must be between 2 and 254")
 	private String name;
@@ -48,7 +47,7 @@ public class BtSetting implements Serializable{
 	 * Books in this setting.
 	 */
 //	@ApiModelProperty(notes = "Books in this setting.", required = false, position = 2, dataType = "BtBooks")
-	@OneToMany(mappedBy="setting", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy="setting")
 	private Set<BtBook> books;
 
 }

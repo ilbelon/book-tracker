@@ -80,15 +80,6 @@ public class BtBookServiceImpl implements BtBookService{
 	
 	private void checkIfBookAlreadyPresent(BtBookDto bookDto) {
 		Optional<BtBook> checkIfAlreadyPresent = bookRepository.findByTitle(bookDto.getTitle());
-//		if(checkIfAlreadyPresent.isPresent()) {
-//			BtBooks book = checkIfAlreadyPresent.get();
-//			Long idBook=book.getId();
-//			Long idDto = bookDto.getId();
-//			System.out.println(idBook.equals(idDto));
-//			idBook=checkIfAlreadyPresent.get().getId();
-//			System.out.println(idBook.equals(idDto));
-//		}
-		 
 		if(checkIfAlreadyPresent.isPresent()&&!checkIfAlreadyPresent.get().getId().equals(bookDto.getId())) 
 			throw new PersistenceViolationException(bookAlreadyExistsMessage, bookMapper.BtBooksDtoFromBtBooks(checkIfAlreadyPresent.get())); 
 	}

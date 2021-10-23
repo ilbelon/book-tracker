@@ -63,13 +63,13 @@ public class BtBook implements Serializable {
 	/**
 	 * BtBookSeriesNumber where book is present.
 	 */
-	@OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "book")
 	private Set<BtBookSerieNumber> bookAssociations;
 	
 	/**
 	 * UserBookAssociation created by users about a book.
 	 */
-	@OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "book")
 	private Set<BtUserBookAssociation> userBookAssociations;
 	
 }
