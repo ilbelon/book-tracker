@@ -3,7 +3,6 @@ package org.belon.booktracker.books.entities;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -67,7 +66,7 @@ public class BtBook implements Serializable {
 	private Set<BtBookSerieNumber> bookAssociations;
 	
 	/**
-	 * UserBookAssociation created by users about a book.
+	 * UserBookAssociation created by user.
 	 */
 	@OneToMany(mappedBy = "book")
 	private Set<BtUserBookAssociation> userBookAssociations;

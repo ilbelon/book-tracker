@@ -1,4 +1,4 @@
-package org.belon.booktracker.books.service.impl;
+package org.belon.booktracker.books.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,23 +38,23 @@ public class BtBookServiceImpl implements BtBookService{
 	@Transactional
 	public BtBookDto createBtBook(@Valid BtBookDto bookDto) {
 		this.checkIfBookAlreadyPresent(bookDto);
-		BtBook book = bookMapper.BtBooksDtoToBtBooks(bookDto);
+		BtBook book = bookMapper.btBooksDtoToBtBooks(bookDto);
 		book = bookRepository.save(book);
-		return bookMapper.BtBooksDtoFromBtBooks(book);
+		return bookMapper.btBooksDtoFromBtBooks(book);
 	}
 
 	@Transactional(readOnly = true)
 	public BtBookDto getBtBook(Long id) {
 		Optional<BtBook> book = bookRepository.findById(id);
 		if(book.isPresent()) {
-			return bookMapper.BtBooksDtoFromBtBooks(book.get());
+			return bookMapper.btBooksDtoFromBtBooks(book.get());
 		}
 		else throw new ResourceNotFoundException(bookNotFoundMessage);
 	}
 
 	@Transactional(readOnly = true)
 	public List<BtBookDto> getBtBooksList() {
-		return bookMapper.BtBooksDtoFromBtBooks(bookRepository.findAll());
+		return bookMapper.btBooksDtoFromBtBooks(bookRepository.findAll());
 	}
 
 	@Transactional
@@ -64,7 +64,7 @@ public class BtBookServiceImpl implements BtBookService{
 		if(book.isPresent()) {
 			BtBook updatedbook = bookMapper.updateBtBooks(bookDto,book.get());
 			updatedbook = bookRepository.save(updatedbook);
-			return bookMapper.BtBooksDtoFromBtBooks(updatedbook);
+			return bookMapper.btBooksDtoFromBtBooks(updatedbook);
 		}
 		else throw new ResourceNotFoundException(bookNotFoundMessage);
 	}
@@ -81,6 +81,6 @@ public class BtBookServiceImpl implements BtBookService{
 	private void checkIfBookAlreadyPresent(BtBookDto bookDto) {
 		Optional<BtBook> checkIfAlreadyPresent = bookRepository.findByTitle(bookDto.getTitle());
 		if(checkIfAlreadyPresent.isPresent()&&!checkIfAlreadyPresent.get().getId().equals(bookDto.getId())) 
-			throw new PersistenceViolationException(bookAlreadyExistsMessage, bookMapper.BtBooksDtoFromBtBooks(checkIfAlreadyPresent.get())); 
+			throw new PersistenceViolationException(bookAlreadyExistsMessage, bookMapper.btBooksDtoFromBtBooks(checkIfAlreadyPresent.get())); 
 	}
 }

@@ -22,13 +22,13 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE,nullValueMappingStrategy =  NullValueMappingStrategy.RETURN_DEFAULT)
 public interface BtBookSerieNumberMapper {
 
-	public BtBookSerieNumber BtBookSerieNumberDtoToBtBookSerieNumber(BtBookSerieNumberDto userDto);
+	public BtBookSerieNumber btBookSerieNumberDtoToBtBookSerieNumber(BtBookSerieNumberDto userDto);
 	
-	public BtBookSerieNumberDto BtBookSerieNumberDtoFromBtBookSerieNumber(BtBookSerieNumber user);
+	public BtBookSerieNumberDto btBookSerieNumberDtoFromBtBookSerieNumber(BtBookSerieNumber user);
 	
-	public List<BtBookSerieNumber> BtBookSerieNumberDtoToBtBookSerieNumber(List<BtBookSerieNumberDto> userDtos);
+	public List<BtBookSerieNumber> btBookSerieNumberDtoToBtBookSerieNumber(List<BtBookSerieNumberDto> userDtos);
 	
-	public List<BtBookSerieNumberDto> BtBookSerieNumberDtoFromBtBookSerieNumber(List<BtBookSerieNumber> users);
+	public List<BtBookSerieNumberDto> btBookSerieNumberDtoFromBtBookSerieNumber(List<BtBookSerieNumber> users);
 	
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)

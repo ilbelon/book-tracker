@@ -1,4 +1,4 @@
-package org.belon.booktracker.books.service.impl;
+package org.belon.booktracker.books.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,23 +36,23 @@ public class BtSettingServiceImpl implements BtSettingService{
 	@Transactional
 	public BtSettingDto createBtSetting(BtSettingDto settingDto) {
 		this.checkIfSettingWithNameAlreadyPresent(settingDto);
-		BtSetting setting = settingMapper.BtSettingsDtoToBtSettings(settingDto);
+		BtSetting setting = settingMapper.btSettingsDtoToBtSettings(settingDto);
 		setting = settingRepository.save(setting);
-		return settingMapper.BtSettingsDtoFromBtSettings(setting);
+		return settingMapper.btSettingsDtoFromBtSettings(setting);
 	}
 
 	@Transactional(readOnly = true)
 	public BtSettingDto getBtSetting(Long id) {
 		Optional<BtSetting> setting = settingRepository.findById(id);
 		if(setting.isPresent()) {
-			return settingMapper.BtSettingsDtoFromBtSettings(setting.get());
+			return settingMapper.btSettingsDtoFromBtSettings(setting.get());
 		}
 		else throw new ResourceNotFoundException(settingNotFoundMessage);
 	}
 
 	@Transactional(readOnly = true)
 	public List<BtSettingDto> getBtSettingsList() {
-		return settingMapper.BtSettingsDtoFromBtSettings(settingRepository.findAll());
+		return settingMapper.btSettingsDtoFromBtSettings(settingRepository.findAll());
 	}
 
 	@Transactional
@@ -62,7 +62,7 @@ public class BtSettingServiceImpl implements BtSettingService{
 		if(setting.isPresent()) {
 			BtSetting updatedSetting = settingMapper.updateBtSettings(settingDto,setting.get());
 			updatedSetting = settingRepository.save(updatedSetting);
-			return settingMapper.BtSettingsDtoFromBtSettings(updatedSetting);
+			return settingMapper.btSettingsDtoFromBtSettings(updatedSetting);
 		}
 		else throw new ResourceNotFoundException(settingNotFoundMessage);
 	}
@@ -80,7 +80,7 @@ public class BtSettingServiceImpl implements BtSettingService{
 	private void checkIfSettingWithNameAlreadyPresent(BtSettingDto settingDto) {
 		Optional<BtSetting> checkIfAlreadyPresent = settingRepository.findByName(settingDto.getName());
 		if(checkIfAlreadyPresent.isPresent()&&!checkIfAlreadyPresent.get().getId().equals(settingDto.getId())
-				) throw new PersistenceViolationException(authorAlreadyExistsMessage, settingMapper.BtSettingsDtoFromBtSettings(checkIfAlreadyPresent.get())); 
+				) throw new PersistenceViolationException(authorAlreadyExistsMessage, settingMapper.btSettingsDtoFromBtSettings(checkIfAlreadyPresent.get())); 
 	}
 
 }

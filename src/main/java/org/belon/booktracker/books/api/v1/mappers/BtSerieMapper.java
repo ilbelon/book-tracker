@@ -22,13 +22,13 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE,nullValueMappingStrategy =  NullValueMappingStrategy.RETURN_DEFAULT)
 public interface BtSerieMapper {
 
-	public BtSerie BtSeriesDtoToBtSeries(BtSerieDto userDto);
+	public BtSerie btSeriesDtoToBtSeries(BtSerieDto userDto);
 	
-	public BtSerieDto BtSeriesDtoFromBtSeries(BtSerie user);
+	public BtSerieDto btSeriesDtoFromBtSeries(BtSerie user);
 	
-	public List<BtSerie> BtSeriesDtoToBtSeries(List<BtSerieDto> userDtos);
+	public List<BtSerie> btSeriesDtoToBtSeries(List<BtSerieDto> userDtos);
 	
-	public List<BtSerieDto> BtSeriesDtoFromBtSeries(List<BtSerie> users);
+	public List<BtSerieDto> btSeriesDtoFromBtSeries(List<BtSerie> users);
 	
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)

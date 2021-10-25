@@ -3,7 +3,7 @@ package org.belon.booktracker.books.api.v1.dtos;
 import java.io.Serializable;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -20,10 +20,10 @@ public class BtBookSerieNumberDto implements Serializable{
 
 	private Long id;
 	
-	@NotBlank(message="Book can't be null")
+	@NotNull(message="Book can't be null")
 	private BtBookDto book;
 	
-	@NotBlank(message="Serie can't be null")
+	@NotNull(message="Serie can't be null")
 	private BtSerieDto serie;
 	
 	@Min(value=1,message="The book number in serie can't be lesser than 1")

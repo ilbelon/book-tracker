@@ -9,8 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -22,6 +23,7 @@ import lombok.Data;
  */
 //@ApiModel(description = "Class representing ManyToMany relationship between books and series")
 @Entity
+@Table(uniqueConstraints=@javax.persistence.UniqueConstraint(columnNames={"book_id", "serie_id"}))
 @Data
 public class BtBookSerieNumber implements Serializable {
 
@@ -41,7 +43,7 @@ public class BtBookSerieNumber implements Serializable {
 //	@ApiModelProperty(notes = "Books FK.", required = true, position = 0, dataType = "BtBooks")
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
-    @NotBlank(message="Book can't be null")
+    @NotNull(message="Book can't be null")
     private BtBook book;
 
 	/**
@@ -50,7 +52,7 @@ public class BtBookSerieNumber implements Serializable {
 //	@ApiModelProperty(notes = "Serie FK.", required = true, position = 1, dataType = "BtSeries")
     @ManyToOne
     @JoinColumn(name = "serie_id", referencedColumnName = "id")
-    @NotBlank(message="Serie can't be null")
+    @NotNull(message="Serie can't be null")
 	private BtSerie serie;
 
 	/**
@@ -58,7 +60,7 @@ public class BtBookSerieNumber implements Serializable {
 	 */
 //	@ApiModelProperty(notes = "Number representing the order of this book in the series", example = "2", required = true)
 	@Column
-	@NotBlank(message="Number of this book in series can't be null")
+	@NotNull(message="Number of this book in series can't be null")
 	@Min(value=1,message="The book number in serie can't be lesser than 1")
 	private int numberOfThisBookInSeries;
 }

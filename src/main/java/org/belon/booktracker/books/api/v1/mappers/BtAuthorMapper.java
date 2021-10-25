@@ -22,13 +22,13 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE,nullValueMappingStrategy =  NullValueMappingStrategy.RETURN_DEFAULT)
 public interface BtAuthorMapper {
 
-	public BtAuthor BtAuthorsDtoToBtAuthors(BtAuthorDto userDto);
+	public BtAuthor btAuthorsDtoToBtAuthors(BtAuthorDto userDto);
 	
-	public BtAuthorDto BtAuthorsDtoFromBtAuthors(BtAuthor user);
+	public BtAuthorDto btAuthorsDtoFromBtAuthors(BtAuthor user);
 	
-	public List<BtAuthor> BtAuthorsDtoToBtAuthors(List<BtAuthorDto> userDtos);
+	public List<BtAuthor> btAuthorsDtoToBtAuthors(List<BtAuthorDto> userDtos);
 	
-	public List<BtAuthorDto> BtAuthorsDtoFromBtAuthors(List<BtAuthor> users);
+	public List<BtAuthorDto> btAuthorsDtoFromBtAuthors(List<BtAuthor> users);
 	
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)

@@ -1,4 +1,4 @@
-package org.belon.booktracker.books.service.impl;
+package org.belon.booktracker.books.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +39,9 @@ public class BtAuthorServiceImpl implements BtAuthorSevice{
 	@Transactional
 	public BtAuthorDto createBtAuthor(BtAuthorDto authorDto) {
 		this.checkIfAuthorWithNameAndSurnameAlreadyPresent(authorDto);
-		BtAuthor author = authorMapper.BtAuthorsDtoToBtAuthors(authorDto);
+		BtAuthor author = authorMapper.btAuthorsDtoToBtAuthors(authorDto);
 		author = authorRepository.save(author);
-		return authorMapper.BtAuthorsDtoFromBtAuthors(author);
+		return authorMapper.btAuthorsDtoFromBtAuthors(author);
 	}
 
 	@Transactional(readOnly = true)
@@ -50,14 +50,14 @@ public class BtAuthorServiceImpl implements BtAuthorSevice{
 		if(author.isPresent()) {
 			author.get().getBooks();
 			System.out.println(author.get().getBooks().toString());
-			return authorMapper.BtAuthorsDtoFromBtAuthors(author.get());
+			return authorMapper.btAuthorsDtoFromBtAuthors(author.get());
 		}
 		else throw new ResourceNotFoundException(authorNotFoundMessage);
 	}
 
 	@Transactional(readOnly = true)
 	public List<BtAuthorDto> getBtAuthorsList() {
-		return authorMapper.BtAuthorsDtoFromBtAuthors(authorRepository.findAll());
+		return authorMapper.btAuthorsDtoFromBtAuthors(authorRepository.findAll());
 	}
 
 	@Transactional
@@ -67,7 +67,7 @@ public class BtAuthorServiceImpl implements BtAuthorSevice{
 		if(author.isPresent()) {
 			BtAuthor updateAuthor = authorMapper.updateBtAuthors(authorDto,author.get());
 			updateAuthor = authorRepository.save(updateAuthor);
-			return authorMapper.BtAuthorsDtoFromBtAuthors(updateAuthor);
+			return authorMapper.btAuthorsDtoFromBtAuthors(updateAuthor);
 		}
 		else throw new ResourceNotFoundException(authorNotFoundMessage);
 	}
@@ -84,7 +84,7 @@ public class BtAuthorServiceImpl implements BtAuthorSevice{
 	
 	private void checkIfAuthorWithNameAndSurnameAlreadyPresent(BtAuthorDto authorDto) {
 		Optional<BtAuthor> checkIfAlreadyPresent = authorRepository.findByNameAndSurname(authorDto.getName(), authorDto.getSurname());
-		if(checkIfAlreadyPresent.isPresent()) throw new PersistenceViolationException(authorAlreadyExistsMessage, authorMapper.BtAuthorsDtoFromBtAuthors(checkIfAlreadyPresent.get())); 
+		if(checkIfAlreadyPresent.isPresent()) throw new PersistenceViolationException(authorAlreadyExistsMessage, authorMapper.btAuthorsDtoFromBtAuthors(checkIfAlreadyPresent.get())); 
 	}
 
 }
