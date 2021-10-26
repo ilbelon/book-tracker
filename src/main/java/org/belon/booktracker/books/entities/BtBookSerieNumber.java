@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -23,7 +24,7 @@ import lombok.Data;
  */
 //@ApiModel(description = "Class representing ManyToMany relationship between books and series")
 @Entity
-@Table(uniqueConstraints=@javax.persistence.UniqueConstraint(columnNames={"book_id", "serie_id","number_of_this_book_in_series"}))
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"book_id", "serie_id"}))
 @Data
 public class BtBookSerieNumber implements Serializable {
 
@@ -59,7 +60,7 @@ public class BtBookSerieNumber implements Serializable {
 	 * Number representing the order of this book in the series
 	 */
 //	@ApiModelProperty(notes = "Number representing the order of this book in the series", example = "2", required = true)
-	@Column
+	@Column(name="number_of_this_book_in_series")
 	@NotNull(message="Number of this book in series can't be null")
 	@Min(value=1,message="The book number in serie can't be lesser than 1")
 	private int numberOfThisBookInSeries;
