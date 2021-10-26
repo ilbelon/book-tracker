@@ -23,7 +23,7 @@ import lombok.Data;
  */
 //@ApiModel(description = "Class representing ManyToMany relationship between books and series")
 @Entity
-@Table(uniqueConstraints=@javax.persistence.UniqueConstraint(columnNames={"book_id", "serie_id"}))
+@Table(uniqueConstraints=@javax.persistence.UniqueConstraint(columnNames={"book_id", "serie_id","number_of_this_book_in_series"}))
 @Data
 public class BtBookSerieNumber implements Serializable {
 

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.belon.booktracker.core.response.exception.customexceptions.PersistenceViolationException;
 import org.belon.booktracker.core.response.exception.customexceptions.ResourceNotFoundException;
 import org.belon.booktracker.users.api.v1.dtos.BtUserDto;
 import org.belon.booktracker.users.api.v1.mappers.BtUserMapper;
@@ -31,9 +32,13 @@ public class BtUserServiceImpl implements BtUserService{
 	private BtUserMapper userMapper;
 	
 	private String userNotFoundMessage="User with this id does not exists";
+	private String userWithThisUsernameAlreadyExistsMessage="This usernamen already exists.";
+	private String userWithThisEmailAlreadyExistsMessage="This email already exists.";
+	
 	
 	@Transactional
 	public BtUserDto createBtUser(BtUserDto userDto) {
+		this.checkIfAuthorWithUsernameOrEmailAlreadyPresent(userDto);
 		BtUser user = userMapper.btUsersDtoToBtUsers(userDto);
 		user.setRegistrationDate(LocalDateTime.now());
 		user = userRepository.save(user);
@@ -56,7 +61,7 @@ public class BtUserServiceImpl implements BtUserService{
 
 	@Transactional
 	public BtUserDto patchBtUser(BtUserDto userDto) {
-		if(userDto.getId()==null) return null;
+		this.checkIfAuthorWithUsernameOrEmailAlreadyPresent(userDto);
 		Optional<BtUser> user = userRepository.findById(userDto.getId());
 		if(user.isPresent()) {
 			BtUser updatedUser = userMapper.updateBtUsers(userDto,user.get());
@@ -74,6 +79,17 @@ public class BtUserServiceImpl implements BtUserService{
 			throw new ResourceNotFoundException(userNotFoundMessage);
 		}
 		
+	}
+	
+	private void checkIfAuthorWithUsernameOrEmailAlreadyPresent(BtUserDto userDto) {
+		Optional<BtUser> checkIfAlreadyPresent = userRepository.findByUsernameOrEmail(userDto.getUsername(), userDto.getEmail());
+		if(checkIfAlreadyPresent.isPresent()&&
+				(userDto.getId()==null || (userDto.getId()!=null && !userDto.getId().equals(checkIfAlreadyPresent.get().getId())))) {
+			BtUser check = checkIfAlreadyPresent.get();
+			String errorMessage = userWithThisUsernameAlreadyExistsMessage;
+			if(userDto.getEmail().equals(check.getEmail())) errorMessage = userWithThisEmailAlreadyExistsMessage;
+			throw new PersistenceViolationException(errorMessage, null); 
+		}
 	}
 
 }

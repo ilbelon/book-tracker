@@ -1,6 +1,11 @@
-package org.belon.booktracker.userdata.dto;
+package org.belon.booktracker.userdata.api.v1.dtos;
 
 import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
+
+import org.belon.booktracker.books.api.v1.dtos.BtBookDto;
+import org.belon.booktracker.users.api.v1.dtos.BtUserDto;
 
 import lombok.Data;
 
@@ -15,5 +20,10 @@ import lombok.Data;
 public class BtUserBookAssociationDto implements Serializable{
 
 	private static final long serialVersionUID = 1009961008462190649L;
+	
+	@NotNull(message="Book can't be empty")
+	private BtBookDto book;
+	@NotNull(message="User can't be empty")
+	private BtUserDto user;
 
 }
