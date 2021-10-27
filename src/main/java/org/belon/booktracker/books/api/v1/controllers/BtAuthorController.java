@@ -50,7 +50,7 @@ public class BtAuthorController {
 	@ApiOperation(value = "Create a new author")
 	@PostMapping(produces = "application/json")
 	public ResponseEntity<Object> createAuthor(@RequestBody @Valid BtAuthorDto author){
-        return ResponseFactory.generateResponse("Author created succesfully", HttpStatus.OK, authorService.createBtAuthor(author));
+        return ResponseFactory.generateResponse("Author created succesfully", HttpStatus.CREATED, authorService.createBtAuthor(author));
     }
 
 	@ApiOperation(value = "Update an existing author")

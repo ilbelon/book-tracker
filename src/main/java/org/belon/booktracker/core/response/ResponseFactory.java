@@ -39,7 +39,7 @@ public class ResponseFactory {
 	public static ResponseEntity<Object> generateErrorResponse(String errorMessage, HttpStatus status, Object errorObject) {
 		Map<String, Object> map = getBaseMap(errorMessage,status);
 		if (errorObject!=null) {
-			map.put("error data", errorObject);
+			map.put("error", errorObject);
 		}
 		return new ResponseEntity<>(map,status);
     }
