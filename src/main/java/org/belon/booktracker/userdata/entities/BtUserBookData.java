@@ -1,7 +1,7 @@
 package org.belon.booktracker.userdata.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -44,13 +44,13 @@ public class BtUserBookData implements Serializable{
 	 * Insert of Data object.
 	 */
 	@Column
-	private LocalDate insertDate;
+	private LocalDateTime insertDate;
 	
 	/**
 	 * UpdateDate of Data object.
 	 */
 	@Column
-	private LocalDate updateDate;
+	private LocalDateTime updateDate;
 	
 	@ManyToOne
 	@JoinColumns({

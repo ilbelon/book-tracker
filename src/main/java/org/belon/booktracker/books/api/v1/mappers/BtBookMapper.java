@@ -6,6 +6,7 @@ import org.belon.booktracker.books.api.v1.dtos.BtBookDto;
 import org.belon.booktracker.books.entities.BtBook;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValueMappingStrategy;
@@ -24,6 +25,7 @@ public interface BtBookMapper {
 
 	public BtBook btBooksDtoToBtBooks(BtBookDto bookDto);
 	
+	@Mapping(target = "bookSerieNumber.book", ignore = true)
 	public BtBookDto btBooksDtoFromBtBooks(BtBook book);
 	
 	public List<BtBook> btBooksDtoToBtBooks(List<BtBookDto> bookDtos);

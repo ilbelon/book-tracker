@@ -3,7 +3,6 @@ package org.belon.booktracker.books.entities;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +39,7 @@ public class BtSerie implements Serializable{
 	 * Name of the series.
 	 */
 //	@ApiModelProperty(notes = "Name of the series.", example = "Legend of Drizzt", required = true, position = 1)
-	@Column
+	@Column(unique=true)
 	@NotBlank(message="Serie name can't be empty")
 	@Size(min=2,max=254,message="Serie name length must be between 2 and 254")
 	private String name;
@@ -49,7 +48,7 @@ public class BtSerie implements Serializable{
 	 * Books in this series.
 	 */
 //	@ApiModelProperty(notes = "Books in this series.", required = false, position = 2, dataType = "BtBooks")
-	@OneToMany(mappedBy = "serie", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "serie")
 	private Set<BtBookSerieNumber> seriesAssociation;
 
 }

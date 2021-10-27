@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Class representing an Author in the application.
@@ -51,6 +52,7 @@ public class BtAuthor implements Serializable{
 	/**
 	 * Books written by the Author
 	 */
-	@ManyToMany
+	@EqualsAndHashCode.Exclude
+	@ManyToMany(mappedBy="authors")
 	private Set<BtBook> books;
 }

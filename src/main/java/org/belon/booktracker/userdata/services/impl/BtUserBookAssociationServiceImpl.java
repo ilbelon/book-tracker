@@ -1,5 +1,6 @@
 package org.belon.booktracker.userdata.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,7 @@ public class BtUserBookAssociationServiceImpl implements BtUserBookAssociationSe
 	public BtUserBookAssociationDto createBtUserBookAssociation(BtUserBookAssociationDto userBookAssociationDto) {
 		this.checkIfUserBookAssociationWithNameAndSurnameAlreadyPresent(userBookAssociationDto);
 		BtUserBookAssociation userBookAssociation = userBookAssociationMapper.btUserBookAssociationDtoToBtUserBookAssociations(userBookAssociationDto);
+		userBookAssociation.setInsertDate(LocalDateTime.now());
 		userBookAssociation = userBookAssociationRepository.save(userBookAssociation);
 		return userBookAssociationMapper.btUserBookAssociationDtoFromBtUserBookAssociations(userBookAssociation);
 	}

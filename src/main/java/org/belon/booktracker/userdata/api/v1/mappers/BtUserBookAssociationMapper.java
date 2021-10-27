@@ -6,6 +6,7 @@ import org.belon.booktracker.userdata.api.v1.dtos.BtUserBookAssociationDto;
 import org.belon.booktracker.userdata.entities.BtUserBookAssociation;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValueMappingStrategy;
@@ -24,6 +25,7 @@ public interface BtUserBookAssociationMapper {
 
 	public BtUserBookAssociation btUserBookAssociationDtoToBtUserBookAssociations(BtUserBookAssociationDto userBookAssociationDto);
 	
+	@Mapping(target = "{book.bookSerieNumber.userBookAssociations,user.userBookAssociations}", ignore = true)
 	public BtUserBookAssociationDto btUserBookAssociationDtoFromBtUserBookAssociations(BtUserBookAssociation userBookAssociation);
 	
 	public List<BtUserBookAssociation> btUserBookAssociationDtoToBtUserBookAssociations(List<BtUserBookAssociationDto> userBookAssociationDtos);

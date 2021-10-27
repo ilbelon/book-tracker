@@ -41,7 +41,7 @@ public class BtPlacesData extends BtUserBookData implements Serializable {
 	/**
 	 * Chapter where you find this place.
 	 */
-	@ManyToMany(mappedBy = "placesInChapter",cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "placesInChapter")
 	Set<BtChapterData> inChapters;
 	
 }

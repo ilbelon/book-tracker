@@ -9,15 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.belon.booktracker.userdata.entities.BtUserBookAssociation;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Class representing a book in the application.
@@ -26,7 +29,7 @@ import lombok.Data;
  *  
  */
 @Entity
-@Data
+@Data 
 public class BtBook implements Serializable {
 
 	private static final long serialVersionUID = 3125821555736931409L;
@@ -50,6 +53,9 @@ public class BtBook implements Serializable {
 	 * Authors of the Book.
 	 */
 	@ManyToMany
+	@JoinTable(name = "bt_book_author",
+		joinColumns = @JoinColumn(name = "book_id"),
+		inverseJoinColumns = @JoinColumn(name = "author_id"))
 	private Set<BtAuthor> authors;
 	
 	/**
@@ -62,12 +68,14 @@ public class BtBook implements Serializable {
 	/**
 	 * BtBookSeriesNumber where book is present.
 	 */
-	@OneToMany(mappedBy = "book")
-	private Set<BtBookSerieNumber> bookAssociations;
+	@OneToOne
+	@JoinColumn(name = "book_serie_number_id", referencedColumnName = "id")
+	private BtBookSerieNumber bookSerieNumber;
 	
 	/**
 	 * UserBookAssociation created by user.
 	 */
+	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "book")
 	private Set<BtUserBookAssociation> userBookAssociations;
 	

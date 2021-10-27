@@ -7,14 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Class representing ManyToMany relationship between books and series
@@ -42,8 +43,8 @@ public class BtBookSerieNumber implements Serializable {
 	 * Books FK.
 	 */
 //	@ApiModelProperty(notes = "Books FK.", required = true, position = 0, dataType = "BtBooks")
-    @ManyToOne
-    @JoinColumn(name = "book_id", referencedColumnName = "id")
+	@EqualsAndHashCode.Exclude
+	@OneToOne
     @NotNull(message="Book can't be null")
     private BtBook book;
 
@@ -51,8 +52,8 @@ public class BtBookSerieNumber implements Serializable {
 	 * Serie FK.
 	 */
 //	@ApiModelProperty(notes = "Serie FK.", required = true, position = 1, dataType = "BtSeries")
-    @ManyToOne
-    @JoinColumn(name = "serie_id", referencedColumnName = "id")
+	@EqualsAndHashCode.Exclude
+	@ManyToOne
     @NotNull(message="Serie can't be null")
 	private BtSerie serie;
 
@@ -60,7 +61,7 @@ public class BtBookSerieNumber implements Serializable {
 	 * Number representing the order of this book in the series
 	 */
 //	@ApiModelProperty(notes = "Number representing the order of this book in the series", example = "2", required = true)
-	@Column(name="number_of_this_book_in_series")
+	@Column(name="number_of_this_book_in_serie")
 	@NotNull(message="Number of this book in series can't be null")
 	@Min(value=1,message="The book number in serie can't be lesser than 1")
 	private int numberOfThisBookInSeries;

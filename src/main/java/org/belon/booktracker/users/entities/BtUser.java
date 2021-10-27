@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import org.belon.booktracker.userdata.entities.BtUserBookAssociation;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Class reprenting an user in the application
@@ -68,7 +69,8 @@ public class BtUser implements Serializable{
 	/**
 	 * UserBookAssociation created by user.
 	 */
+	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-	private Set<BtUserBookAssociation> bookAssociation;
+	private Set<BtUserBookAssociation> bookAssociations;
 	
 }

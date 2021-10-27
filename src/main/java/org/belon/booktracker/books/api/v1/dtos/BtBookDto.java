@@ -33,5 +33,9 @@ public class BtBookDto implements Serializable{
 	@NotEmpty(message="Author should be provided")
 	private Set<BtAuthorDto> authors;
 	
+	@ApiModelProperty(notes = "Setting of Book", required = true, position = 3)
 	private BtSettingDto setting;
+	
+	@ApiModelProperty(notes = "Serie of Book", required = true, position = 3)
+	private BtBookSerieNumberDto bookSerieNumber;
 }
