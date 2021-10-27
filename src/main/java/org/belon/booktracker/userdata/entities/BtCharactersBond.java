@@ -32,7 +32,7 @@ public class BtCharactersBond implements Serializable {
 	@Id
     @ManyToOne
     @JoinColumn(name = "character1_id", referencedColumnName = "id")
-	private BtCharactersData character1;
+	private BtCharacterData character1;
 	
 	/**
 	 * second_character_id
@@ -40,7 +40,7 @@ public class BtCharactersBond implements Serializable {
 	@Id
     @ManyToOne
     @JoinColumn(name = "character2_id", referencedColumnName = "id")
-	private BtCharactersData character2;
+	private BtCharacterData character2;
 	
 	@Column
 	private String bond;

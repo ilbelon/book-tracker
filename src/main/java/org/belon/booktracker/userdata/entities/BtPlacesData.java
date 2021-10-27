@@ -36,7 +36,7 @@ public class BtPlacesData extends BtUserBookData implements Serializable {
 	 * Character born here.
 	 */
 	@OneToMany(mappedBy = "bornIn", cascade = CascadeType.DETACH,fetch = FetchType.LAZY)
-	private Set<BtCharactersData> bornHereCharachters;
+	private Set<BtCharacterData> bornHereCharachters;
 	
 	/**
 	 * Chapter where you find this place.

@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class BtCharactersData extends BtUserBookData implements Serializable {
+public class BtCharacterData extends BtUserBookData implements Serializable {
 	
 	private static final long serialVersionUID = -2762832848772257247L;
 	

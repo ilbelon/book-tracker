@@ -47,7 +47,7 @@ public class BtChapterData extends BtUserBookData implements Serializable{
 	  name = "bt_character_chapter", 
 	  joinColumns = @JoinColumn(name = "chapter_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "character_id"))
-	Set<BtCharactersData> charactersInChapter;
+	Set<BtCharacterData> charactersInChapter;
 	
 	/**
 	 * Places in this chapter.

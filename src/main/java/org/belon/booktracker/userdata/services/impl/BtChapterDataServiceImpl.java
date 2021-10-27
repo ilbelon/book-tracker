@@ -1,5 +1,6 @@
 package org.belon.booktracker.userdata.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class BtChapterDataServiceImpl implements BtChapterDataService{
 	public BtChapterDataDto createBtChapterData(BtChapterDataDto chapterDataDto) {
 		this.checkIfChapterDataWithNameAlreadyPresent(chapterDataDto);
 		BtChapterData chapterData = chapterDataMapper.btChapterDataDtoToBtChapterData(chapterDataDto);
+		chapterData.setInsertDate(LocalDateTime.now());
 		chapterData = chapterDataRepository.save(chapterData);
 		return chapterDataMapper.btChapterDataDtoFromBtChapterData(chapterData);
 	}
@@ -62,6 +64,7 @@ public class BtChapterDataServiceImpl implements BtChapterDataService{
 		Optional<BtChapterData> chapterData = chapterDataRepository.findById(chapterDataDto.getId());
 		if(chapterData.isPresent()) {
 			BtChapterData updatedChapterData = chapterDataMapper.updateBtChapterData(chapterDataDto,chapterData.get());
+			updatedChapterData.setUpdateDate(LocalDateTime.now());
 			updatedChapterData = chapterDataRepository.save(updatedChapterData);
 			return chapterDataMapper.btChapterDataDtoFromBtChapterData(updatedChapterData);
 		}

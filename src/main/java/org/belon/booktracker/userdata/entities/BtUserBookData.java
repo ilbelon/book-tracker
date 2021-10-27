@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -54,10 +54,10 @@ public class BtUserBookData implements Serializable{
 	
 	@ManyToOne
 	@JoinColumns({
-		  @JoinColumn(name = "book_id", insertable = false, updatable = false, nullable=false),
-		  @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable=false)
+		  @JoinColumn(name = "book_id", nullable=false),
+		  @JoinColumn(name = "user_id", nullable=false)
 		})
-	@NotBlank(message="UserBook Association can't be empty")
+	@NotNull(message="UserBook Association can't be empty")
     private BtUserBookAssociation userBookAssociation;
 	
 }

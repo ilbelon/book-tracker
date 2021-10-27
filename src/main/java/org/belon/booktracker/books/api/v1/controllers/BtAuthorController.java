@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 
 /**
  * Rest controller for Author
- * 
+ *
  * @author Andrea
  *
  */
@@ -34,31 +34,31 @@ public class BtAuthorController {
 
 	@Autowired
 	private BtAuthorSevice authorService;
-	
+
 	@ApiOperation(value = "Get a list of users")
 	@GetMapping(produces = "application/json")
     public ResponseEntity<Object> getAuthorsList(){
         return ResponseFactory.generateResponse("Authors retrieved succesfully", HttpStatus.OK, authorService.getBtAuthorsList());
     }
-	
+
 	@ApiOperation(value = "Get the author with given authorId",response = BtAuthorDto.class)
 	@GetMapping(value="/{id}",produces = "application/json")
     public ResponseEntity<Object> getAuthor(@PathVariable(value="id") Long authorId){
 		return ResponseFactory.generateResponse("Author retrieved succesfully", HttpStatus.OK, authorService.getBtAuthor(authorId));
     }
-	
+
 	@ApiOperation(value = "Create a new author")
 	@PostMapping(produces = "application/json")
 	public ResponseEntity<Object> createAuthor(@RequestBody @Valid BtAuthorDto author){
         return ResponseFactory.generateResponse("Author created succesfully", HttpStatus.OK, authorService.createBtAuthor(author));
     }
-	
+
 	@ApiOperation(value = "Update an existing author")
 	@PatchMapping(produces = "application/json")
 	public ResponseEntity<Object> updateAuthor(@RequestBody BtAuthorDto author){
 		return ResponseFactory.generateResponse("Author updated succesfully", HttpStatus.OK, authorService.patchBtAuthor(author));
     }
-	
+
 	@ApiOperation(value = "Delete the author with given authorId",response = BtAuthorDto.class)
 	@DeleteMapping(produces = "application/json")
     public ResponseEntity<Object> deleteAuthor(@RequestParam(value="authorId") Long authorId){
